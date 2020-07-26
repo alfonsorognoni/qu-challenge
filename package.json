@@ -8,6 +8,7 @@
     "build": "parcel build src/index.html"
   },
   "dependencies": {
+    "intersection-observer": "^0.11.0",
     "react": ">=15",
     "react-dom": "^16.13.1",
     "react-router-dom": "^5.2.0"
