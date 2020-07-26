@@ -1,4 +1,4 @@
-import React from "react";
+import React, { lazy, Suspense } from "react";
 import { render } from "react-dom";
 import {
   BrowserRouter as Router,
@@ -7,7 +7,8 @@ import {
   Link
 } from "react-router-dom";
 import Results from './Results';
-import Details from "./Details";
+// import Details from "./Details";
+const Details = lazy(() => import("./Details"));
 
 const App = () => {
   return (
@@ -17,14 +18,16 @@ const App = () => {
           <Link to="/" className="logo">QU Swapi</Link>
         </header>
         <main>
-          <Switch>
-            <Route path="/details/:id">
-              <Details />
-            </Route>
-            <Route path="/">
-              <Results type="planets"/>
-            </Route>
-          </Switch>
+          <Suspense fallback={<h1>Loading Route...</h1>}>
+            <Switch>
+              <Route path="/details/:id">
+                <Details />
+              </Route>
+              <Route path="/">
+                <Results type="planets"/>
+              </Route>
+            </Switch>
+          </Suspense>
         </main>
       </div>
     </Router>

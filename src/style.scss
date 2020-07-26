@@ -38,6 +38,11 @@ main {
     max-width: 800px;
     margin: 0 auto;
 
+    &.loading {
+      height: 100%;
+      color: white;
+    }
+
     article {
       background-color: #2a2a2a;
       border: 2px solid $main-yellow;
@@ -48,6 +53,17 @@ main {
       a {
         color: white;
       }
+    }
+  }
+}
+
+.pagination {
+  display: flex;
+  justify-content: space-between;
+
+  button {
+    &:disabled {
+      cursor: not-allowed;
     }
   }
 }

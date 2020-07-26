@@ -1,16 +1,35 @@
 import React from 'react'
 import { Link } from "react-router-dom"
+import { getResults, getPrevNext } from './tools/SWAPI'
+
 export default function Results({type}) {
+  const [loading, setLoading] = React.useState(true);
   const [results, setResults] = React.useState({});
-  async function getResults () {
-    const response = await fetch(`http://swapi.dev/api/${type}`);
-    const data = await response.json();
-    setResults(data);
-    return data;
-  }
+  
   React.useEffect(() => {
-    getResults()
+    setLoading(true);
+    getResults(type).then(res => {
+      setResults(res);
+      setLoading(false);
+    });
   }, []);
+
+  const onClick = (event) => {
+    const url = event.target.getAttribute('url');
+    setLoading(true);
+    getPrevNext(url).then((res) => {
+      setResults(res);
+      setLoading(false);
+    });
+  }
+
+  if (loading) {
+    return (
+      <section className="content loading">
+        LOADING.....
+      </section>
+    )
+  }
 
   return (
     <section className="content">
@@ -22,6 +41,14 @@ export default function Results({type}) {
           </article>
         )
       })}
+      <div className="pagination">
+        <button disabled={!results.previous} onClick={onClick} url={results.previous}>
+          PREV
+        </button>
+        <button disabled={!results.next} onClick={onClick} url={results.next}>
+          NEXT
+        </button>
+      </div>
     </section>
   )
 }
