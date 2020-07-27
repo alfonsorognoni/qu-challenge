@@ -17,17 +17,24 @@ export default function Details(props) {
 
   if (loading) {
     return (
-      <section className="content loading">
+      <section className="loading">
         LOADING.....
       </section>
     )
   }
 
   return (
-    <section className="content">
-      <article>
-        <div>{details.name}</div>
-        <div>{details.terrain}</div>
+    <section className="">
+      <article className="details">
+        <div>
+          <p><span className="details-item">Name:</span> {details.name}</p>
+          <p><span className="details-item">Climate:</span> {details.climate}</p>
+          <p><span className="details-item">Terrain:</span> {details.terrain}</p>
+        </div>
+        <div>
+          <p><span className="details-item">Gravity:</span> {details.gravity}</p>
+          <p><span className="details-item">Diameter:</span> {details.diameter}</p>
+        </div>
       </article>
     </section>
   )

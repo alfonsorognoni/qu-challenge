@@ -1,7 +1,7 @@
 import React from 'react'
-import { Link } from "react-router-dom"
 import { getResults, getPrevNext } from './tools/SWAPI'
 import useNearScreen from './hooks/useNearScreen'
+import ListItem from './components/ListItem';
 
 export default function Results({type}) {
   const [sort, setSort] = React.useState('');
@@ -63,25 +63,23 @@ export default function Results({type}) {
 
   return (<>
     {loading 
-    ? <section className="content loading">
+    ? <section className="loading">
         LOADING.....
       </section>
     :
       <>
-      <section className="content sorter">
-        <button onClick={sortByName}>Sort by Name {sort !== '' ? sort === 'asc' ? '↓' : '↑' : ''}</button>
-      </section>
-      <section className="content">
-        {results.results && results.results.map(item => {
-          const ID = item.url.replace(/\/$/, "").substr(item.url.replace(/\/$/, "").lastIndexOf('/') + 1);
-          return (
-            <article key={item.url}>
-              <Link to={`/details/${ID}`}>{item.name}</Link>
-            </article>
-          )
-        })}
-      </section>
-      <div id="visor" ref={externalRef}></div>
+        <h1>Planets</h1>
+        <section className="sorter">
+          <button onClick={sortByName}>Sort by Name {sort !== '' ? sort === 'asc' ? '↓' : '↑' : ''}</button>
+        </section>
+        <section>
+          {results.results && results.results.map(item => {
+            return (
+              <ListItem key={item.url} {...item} />
+            )
+          })}
+        </section>
+        <div id="visor" ref={externalRef}></div>
       </>
     }
   </>)

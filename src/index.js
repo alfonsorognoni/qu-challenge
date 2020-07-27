@@ -17,15 +17,16 @@ const App = () => {
         <header>
           <Link to="/" className="logo">QU Swapi</Link>
         </header>
-        <main>
+        <main className="content">
           <Suspense fallback={<h1>Loading Route...</h1>}>
             <Switch>
+              <Route exact path="/">
+                <Results type="planets"/>
+              </Route>
               <Route path="/details/:id">
                 <Details />
               </Route>
-              <Route path="/">
-                <Results type="planets"/>
-              </Route>
+              
             </Switch>
           </Suspense>
         </main>
