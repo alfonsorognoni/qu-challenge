@@ -5,7 +5,7 @@ export async function getResults (type) {
 }
 
 export async function getPrevNext (url) {
-  const response = await fetch(`${url}/`);
+  const response = await fetch(`${url.replace('http', 'https')}`);
   const data = await response.json();
   return data;
 }
