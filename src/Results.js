@@ -4,6 +4,7 @@ import { getResults, getPrevNext } from './tools/SWAPI'
 import useNearScreen from './hooks/useNearScreen'
 
 export default function Results({type}) {
+  const [sort, setSort] = React.useState('');
   const [loading, setLoading] = React.useState(true);
   const [results, setResults] = React.useState({});
 
@@ -11,7 +12,16 @@ export default function Results({type}) {
   const {isNearScreen} = useNearScreen({
     externalRef: loading ? null : externalRef,
     once: false
-  })
+  });
+
+  const sortList = (list, order, key) => {
+    if (order && order !== '') {
+      return order === 'desc'
+      ? [...list].sort((b, a) => (a[key] > b[key] ? 1 : a[key] < b[key] ? -1 : 0))
+      : [...list].sort((a, b) => (a[key] > b[key] ? 1 : a[key] < b[key] ? -1 : 0))
+    }
+    return list
+  }
   
   React.useEffect(() => {
     setLoading(true);
@@ -23,10 +33,7 @@ export default function Results({type}) {
 
   React.useEffect(function () {
     if (isNearScreen) {
-      console.log('SIII near');
-      console.log(externalRef);
-      console.log(results.next);
-      if (results.next) {
+      if (results.next && !loading) {
         handleNextPage(results.next)
       }
     }
@@ -36,10 +43,22 @@ export default function Results({type}) {
     // setLoading(true);
     getPrevNext(url).then((res) => {
       const newResults = [...results.results, ...res.results];
-      res.results = newResults;
+      if (sort !== '') {
+        res.results = sortList(newResults, sort, 'name');
+      } else {
+        res.results = newResults;
+      }
       setResults(res);
       setLoading(false);
     });
+  }
+
+  const sortByName = (event) => {
+    event.preventDefault();
+    const newSort = sort === '' || sort === 'desc' ? 'asc' : 'desc';
+    setSort(newSort);
+    results.results = sortList(results.results, newSort, 'name');
+    setResults({...results});
   }
 
   return (<>
@@ -49,6 +68,9 @@ export default function Results({type}) {
       </section>
     :
       <>
+      <section className="content sorter">
+        <button onClick={sortByName}>Sort by Name {sort !== '' ? sort === 'asc' ? '↓' : '↑' : ''}</button>
+      </section>
       <section className="content">
         {results.results && results.results.map(item => {
           const ID = item.url.replace(/\/$/, "").substr(item.url.replace(/\/$/, "").lastIndexOf('/') + 1);
