@@ -1,5 +1,5 @@
 export async function getResults (type) {
-  const response = await fetch(`https://swapi.dev/api/${type}`);
+  const response = await fetch(`https://swapi.dev/api/${type}/`);
   const data = await response.json();
   return data;
 }
