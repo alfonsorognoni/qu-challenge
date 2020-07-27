@@ -24,10 +24,11 @@ export default function Details(props) {
   }
 
   return (
+    <>
+    <h1>{details.name}</h1>
     <section className="">
       <article className="details">
         <div>
-          <p><span className="details-item">Name:</span> {details.name}</p>
           <p><span className="details-item">Climate:</span> {details.climate}</p>
           <p><span className="details-item">Terrain:</span> {details.terrain}</p>
         </div>
@@ -37,5 +38,6 @@ export default function Details(props) {
         </div>
       </article>
     </section>
+    </>
   )
 }
