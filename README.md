@@ -1,7 +1,7 @@
 
 # QU challenge
 
-QU Web Developer Challenge
+[QU Web Developer Challenge](https://qu-challenge-git-master.alfonsorognoni.vercel.app/)
 
 ## Getting Started
 
@@ -53,3 +53,8 @@ npm run test
 ## Deployment
 
 I added the project to Vercel to have a simple and speed deploy to the app
+
+## Built With
+
+* [React.js](https://reactjs.org/)
+* [Parcel](https://parceljs.org/) - is a web application bundler witch no require much configuration

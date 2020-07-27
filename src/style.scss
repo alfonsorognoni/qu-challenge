@@ -15,6 +15,10 @@ body {
 }
 
 header {
+  display: flex;
+  justify-content: space-between;
+  align-self: center;
+  flex-wrap: wrap;
   min-height: 56px;
   position: fixed;
   text-align: left;
@@ -32,6 +36,21 @@ header {
 
     &:hover {
       color: $main-yellow--hover;
+    }
+  }
+
+  .personalInfo {
+    align-self: center;
+    color: white;
+
+    a {
+      color: white;
+      transition: color .15s ease;
+      text-decoration: none;
+
+      &:hover {
+        color: $main-yellow;
+      }
     }
   }
 }

@@ -14,6 +14,9 @@ export default function App() {
       <div>
         <header>
           <Link to="/" className="logo">QU Swapi</Link>
+          <div className="personalInfo">
+            Developed with ❤️ by <a href="mailto:alfonsorognoni@gmail.com?Subject=Contacto%20from%20swapp">Alfonso Rognoni</a> 👨🏻‍💻
+          </div>
         </header>
         <main className="content">
           <Suspense fallback={<h1>Loading Route...</h1>}>
